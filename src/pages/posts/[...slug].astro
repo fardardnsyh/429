@@ -1,0 +1,26 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content'
+import PostDetail from '@layouts/PostDetail.astro'
+import type { GetStaticPaths } from 'astro'
+import { slugify } from '@utils/slugify'
+
+export const getStaticPaths = (async () => {
+    const posts = await getCollection('blog', ({ data }) => data.draft !== true)
+
+    return posts.map((post) => ({
+        params: { slug: slugify(post.data) },
+        props: { post },
+    }))
+}) satisfies GetStaticPaths
+
+type Props = {
+    post: CollectionEntry<'blog'>
+}
+
+const { post } = Astro.props
+const { Content, remarkPluginFrontmatter } = await post.render()
+---
+
+<PostDetail {...post.data} minutesRead={remarkPluginFrontmatter.minutesRead}>
+    <Content />
+</PostDetail>

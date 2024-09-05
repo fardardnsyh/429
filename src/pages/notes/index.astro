@@ -1,0 +1,18 @@
+---
+import { SITE } from '@consts'
+import { getCollection } from 'astro:content'
+import Posts from '@layouts/Posts.astro'
+import { getSortedPosts } from '@utils/getSortedPosts'
+import { getPageNumbers } from '@utils/getPageNumbers'
+
+const posts = await getCollection('blog', ({ data }) => data.draft !== true)
+const notes = posts.filter(({ data }) => data.tags.includes('notes'))
+
+const sortedPosts = getSortedPosts(notes)
+
+const totalPages = getPageNumbers(sortedPosts.length)
+
+const paginatedPosts = sortedPosts.slice(0, SITE.postPerPage)
+---
+
+<Posts posts={paginatedPosts} pageNum={1} totalPages={totalPages.length} subpath="notes" />

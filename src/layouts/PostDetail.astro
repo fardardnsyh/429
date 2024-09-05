@@ -1,0 +1,142 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import FormattedDate from '../components/FormattedDate.astro'
+import PageLayout from './PageLayout.astro'
+import { Icon } from 'astro-preload/components'
+
+type Props = CollectionEntry<'blog'>['data'] & { minutesRead?: string }
+
+const { title, description, pubDate, updatedDate, heroImage, minutesRead, tags } = Astro.props
+---
+
+<PageLayout title={title} description={description}>
+    <div class="title color text-lg text-primary hover:text-primary-focus pb-2">{title}</div>
+
+    <div class="flex items-center pb-8">
+        <Icon name="mdi:calendar-month-outline" />
+        <FormattedDate date={pubDate} />
+
+        {
+            minutesRead && (
+                <>
+                    <div class="divider divider-horizontal" />
+                    <span class="italic">{minutesRead}</span>
+                </>
+            )
+        }
+
+        <div class="divider divider-horizontal"></div>
+
+        <div class="w-full md:w-auto flex flex-wrap gap-3">
+            {tags.map((tag) => <span class="text-sm text-gray-500">#{tag}</span>)}
+        </div>
+    </div>
+
+    {heroImage && <img width={720} height={360} src={heroImage} alt="" />}
+
+    <article class="prose md:prose-lg lg:prose-xl prose-stone max-w-3xl lg:max-w-4xl prose-img:rounded-xl px-4 prose-headings:underline">
+        {
+            updatedDate && (
+                <div class="last-updated-on">
+                    Last updated on <FormattedDate date={updatedDate} />
+                </div>
+            )
+        }
+        <hr />
+        <slot />
+    </article>
+</PageLayout>
+
+<style is:global>
+    /* infima/microflash/vitepress */
+    @import url('@microflash/remark-callout-directives/themes/vitepress.css');
+    #toc {
+        display: none;
+
+        & + ul {
+            @apply floating-btn-mini list-disc py-4;
+
+            ul {
+                @apply list-[circle] my-0;
+            }
+
+            li {
+                @apply my-0;
+
+                p {
+                    @apply my-1;
+                }
+
+                a {
+                    @apply link;
+                }
+            }
+        }
+    }
+
+    .prose {
+        :not(pre) code {
+            @apply rounded;
+        }
+
+        pre > code {
+            counter-reset: line;
+
+            [data-line] {
+                display: inline-block;
+                border-left: 0.5em solid transparent;
+                padding-left: 0.5em;
+                min-width: calc(100% + 2em);
+                box-sizing: content-box;
+                min-height: 1rem;
+                position: relative;
+                left: -1.5em;
+                text-indent: 1em;
+
+                &::before {
+                    counter-increment: line;
+                    content: counter(line);
+
+                    /* Other styling */
+                    display: inline-block;
+                    width: 1rem;
+                    margin-right: 2rem;
+                    text-align: right;
+                    color: gray;
+                }
+            }
+
+            [data-highlighted-line] {
+                background-color: #2e4c35;
+                border-color: #469458;
+                @apply border-primary bg-purple-900 hover:bg-purple-800;
+            }
+
+            [data-highlighted-chars] {
+                @apply border-b-purple-500 border-b-2 border-transparent rounded-sm bg-purple-900 hover:bg-purple-800 border;
+            }
+        }
+
+        .columns-wrapper,
+        .callout-content {
+            p {
+                @apply my-0;
+            }
+
+            p + p {
+                @apply mt-5;
+            }
+        }
+    }
+
+    [data-theme='dracula'] {
+        .prose {
+            :not(pre) > code {
+                @apply bg-primary-focus;
+            }
+            .prose pre {
+                @apply border-primary border;
+            }
+        }
+    }
+</style>

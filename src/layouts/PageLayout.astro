@@ -1,0 +1,35 @@
+---
+import BaseHead from '../components/BaseHead.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import Breadcrumbs from '../components/Breadcrumbs.astro'
+
+type Props = { title: string; description: string }
+
+const { title, description } = Astro.props
+---
+
+<html lang="en">
+    <head>
+        <BaseHead title={title} description={description} />
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
+            :global(body > *) {
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body class="flex flex-col font-sans text-base break-words px-4 md:px-0">
+        <Header title={title} />
+        <Breadcrumbs />
+
+        <main class="container mx-auto flex-grow max-w-3xl lg:max-w-4xl">
+            <slot />
+        </main>
+        <Footer />
+    </body>
+</html>

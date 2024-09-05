@@ -1,0 +1,70 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from '@consts'
+import ThemeSwitcher from '@components/ThemeSwitcher.astro'
+import BaseHead from '@components/BaseHead.astro'
+
+const links = [
+    {
+        path: 'writings',
+        title: 'Writings',
+    },
+    {
+        path: 'notes',
+        title: 'Notes',
+    },
+    {
+        path: 'tags',
+        title: 'tags',
+    },
+    {
+        path: 'about',
+        title: 'About',
+    },
+]
+---
+
+<html lang="en">
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
+            :global(body > *) {
+                width: 100%;
+            }
+
+            ul > li > a {
+                box-shadow: 4px 4px;
+            }
+        </style>
+    </head>
+
+    <body class="font-sans max-w-2xl mt-24 md:mt-32 m-auto text-center overflow-hidden">
+        <div class="absolute text-right indent-8 top-8 right-8">
+            <ThemeSwitcher class="" />
+        </div>
+
+        <picture>
+            <source srcset={import.meta.env.BASE_URL + 'images/profile-pic.png'} media="(max-width: 799px)" />
+            <source srcset={import.meta.env.BASE_URL + 'images/profile-pic800w.jpg'} media="(min-width: 800px)" />
+            <img class="max-w-full m-auto border-4 border-black shadow-default" src={import.meta.env.BASE_URL + 'images/profile-pic.png'} alt="profile image" width="230" height="230" />
+        </picture>
+
+        <h1 class="mt-8 text-3xl">Mekhi 冯伟</h1>
+        <h2 class="mb-8 text-2xl">Aspire to be a shining programmer.</h2>
+
+        <ul class="text-center mt-4 block">
+            {
+                links.map(({ path, title }) => (
+                    <li class="inline-block">
+                        <a class="inline-block mb-5 mr-3 font-semibold text-primary px-1 py-2 floating-btn-mini border-primary" href={import.meta.env.BASE_URL + path}>
+                            {title}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </body>
+</html>

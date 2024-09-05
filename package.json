@@ -1,0 +1,70 @@
+{
+    "name": "@mekhi/blog",
+    "type": "module",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "prebuild": "git submodule update --init --recursive --remote",
+        "check": "astro check",
+        "build": "astro build --base \"blog/\"",
+        "preview": "astro preview --site \"https://fw6.github.io\" --base \"blog/\"",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "@astrojs/check": "^0.2.0",
+        "@astrojs/mdx": "^0.19.7",
+        "@astrojs/rss": "^2.4.3",
+        "@astrojs/sitemap": "^1.3.3",
+        "@astrojs/svelte": "^3.1.0",
+        "@astrojs/tailwind": "^4.0.0",
+        "@fec/remark-a11y-emoji": "^3.1.0",
+        "@microflash/remark-callout-directives": "^1.6.0",
+        "astro": "^3.0.3",
+        "astro-pagefind": "^1.2.4",
+        "fuse.js": "^6.6.2",
+        "github-slugger": "^2.0.0",
+        "lxgw-wenkai-screen-webfont": "^1.7.0",
+        "mdast-util-to-string": "^3.2.0",
+        "reading-time": "^1.5.0",
+        "rehype-pretty-code": "^0.10.0",
+        "rehype-stringify": "^9.0.3",
+        "remark-collapse": "^0.1.2",
+        "remark-directive": "^2.0.1",
+        "remark-obsidian-callout": "^1.1.3",
+        "remark-toc": "^8.0.1",
+        "svelte": "^4.1.1",
+        "tailwindcss": "^3.3.2"
+    },
+    "volta": {
+        "node": "18.16.0"
+    },
+    "devDependencies": {
+        "@tailwindcss/typography": "^0.5.9",
+        "@types/mdast": "^4.0.0",
+        "@types/node": "^20.4.2",
+        "astro-compress": "2.0.14",
+        "astro-preload": "1.1.2",
+        "astro-rome": "2.0.8",
+        "autoprefixer": "^10.4.14",
+        "daisyui": "^3.1.6",
+        "hastscript": "^7.2.0",
+        "octokit": "^3.0.0",
+        "postcss-import": "^15.1.0",
+        "postcss-nesting": "^11.3.0",
+        "postcss-preset-env": "^8.5.1",
+        "rehype-parse": "^8.0.4",
+        "rome": "^12.1.3",
+        "tinycolor2": "^1.6.0",
+        "typescript": "^5.2.2",
+        "unified": "^10.1.2",
+        "unist-util-visit": "^5.0.0",
+        "vite-plugin-externalize-dependencies": "^0.13.0"
+    },
+    "pnpm": {
+        "patchedDependencies": {
+            "astro-preload@1.1.2": "patches/astro-preload@1.1.2.patch"
+        }
+    }
+}

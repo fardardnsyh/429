@@ -1,0 +1,14 @@
+---
+import { Icon } from 'astro-preload/components'
+---
+
+<div class="divider max-w-3xl lg:max-w-4xl mx-auto mt-8"></div>
+<footer class="footer items-center pb-4 justify-between max-w-3xl lg:max-w-4xl m-auto">
+    <p class="items-center grid-flow-col">Copyright © 2023 - All right reserved</p>
+
+    <div class="grid-flow-col gap-4 md:place-self-center md:justify-self-end text-neutral-content">
+        <a href="https://github.com/fw6"><Icon name="mdi:github" /></a>
+        <a href="https://www.linkedin.com/in/mekhi7/"><Icon name="mdi:linkedin" /></a>
+        <a href={import.meta.env.BASE_URL + 'rss.xml'}><Icon name="mdi:rss" /></a>
+    </div>
+</footer>
